@@ -56,3 +56,4 @@ HDL/isim/precompiled.exe.sim/ieee/p_2592010699.c
 HDL/isim/hdl_library_commonfunctions/mathhelpers.vdb
 HDL/isim/work/spi_slavetb.vdb
 HDL/SPI_SlaveTB_isim_beh.exe
+HDL/iseconfig/HDL.projectmgr
