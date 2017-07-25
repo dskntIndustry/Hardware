@@ -50,20 +50,16 @@ begin
 
 	Test:process
 	begin
-		wait_until_rising_edges(clock, 1000);
+		
 		SS_n <= '1';
 		enable <= '1';
 		wait_until_rising_edges(clock, 1000);
 		SS_n <= '0';
-		wait for (1 sec / (G_CLOCK_FREQUENCY/G_CLOCK_DIVIDER))*(2*G_SPI_TRANSACTION_SIZE);
+		wait_until_rising_edges(SCLK, G_SPI_TRANSACTION_SIZE);
 		SS_n <= '1';
-		wait for 20 us;
-		wait_until_rising_edges(clock, 1000);
-		SS_n <= '1';
-		enable <= '1';
 		wait_until_rising_edges(clock, 1000);
 		SS_n <= '0';
-		wait for (1 sec / (G_CLOCK_FREQUENCY/G_CLOCK_DIVIDER))*(2*G_SPI_TRANSACTION_SIZE);
+		wait_until_rising_edges(SCLK, G_SPI_TRANSACTION_SIZE);
 		SS_n <= '1';
 		wait for 10 us;
 		report "End of test"

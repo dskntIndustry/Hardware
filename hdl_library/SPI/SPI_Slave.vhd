@@ -31,7 +31,7 @@ end entity; --SPI_Slave
 
 architecture arch of SPI_Slave is
 
-	type T_SPI_STATES is (SPI_IDLE, SPI_SERIAL_RECEIVE);
+	type T_SPI_STATES is (SPI_IDLE, SPI_SERIAL_RECEIVE, SPI_RX_FINISHED);
 	signal SPI_current_state 			: T_SPI_STATES := SPI_IDLE;
 	signal SPI_next_state 				: T_SPI_STATES;
 
@@ -64,7 +64,9 @@ begin
 	SPI_States_Updater:process(clock)
 	begin
 		if rising_edge(clock) then
-			SPI_current_state <= SPI_next_state;
+			if SCLK = '1' then
+				SPI_current_state <= SPI_next_state;
+			end if;
 		end if;
 	end process ; -- SPI_States_Updater
 
@@ -74,22 +76,22 @@ begin
 		case(SPI_current_state) is
 			
 			when SPI_IDLE =>
-				ready <= '1';
 				--counter_reset <= '1';
 				if SPI_SS_n_falling = '1' then
-					counter_reset <= '1';
-					--counter_enable <= '1';
+					counter_reset <= '0';
+					counter_enable <= '1';
 					SPI_next_state <= SPI_SERIAL_RECEIVE;
 				end if;
 			when SPI_SERIAL_RECEIVE =>
 				ready <= '0';
-				counter_reset <= '0';
-				counter_enable <= '1';
-				if SPI_previous_bit_counter = G_SPI_TRANSACTION_SIZE-1 then
-					counter_reset <= '1';
+				if SS_n = '1' and SPI_previous_bit_counter = (G_SPI_TRANSACTION_SIZE - 1) then
 					counter_enable <= '0';
 					SPI_next_state <= SPI_IDLE;
 				end if;
+			--when SPI_RX_FINISHED =>
+			--	counter_reset <= '1';
+			--	counter_enable <= '0';
+			--	SPI_next_state <= SPI_IDLE;
 			when others => report "Unreachable state" severity failure;
 		end case;
 	end process ; -- SPI_FSM_logic
