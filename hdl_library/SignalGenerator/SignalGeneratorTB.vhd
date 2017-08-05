@@ -28,7 +28,10 @@ architecture tb of SignalGeneratorTB is
 	constant SIGNAL_TYPE_SINE 				: integer := 1;
 	constant SIGNAL_TYPE_TRIANGLE 			: integer := 2;
 	constant SIGNAL_TYPE_SQUARE 			: integer := 3;
-	constant SIGNAL_TYPE_RANDOM 			: integer := 3;
+	constant SIGNAL_TYPE_RANDOM 			: integer := 4;
+	constant SIGNAL_TYPE_DIRAC 				: integer := 5;
+
+	constant G_CLOCK_COUNTER 				: integer := 100;
 
 
 	--declarations
@@ -45,27 +48,32 @@ architecture tb of SignalGeneratorTB is
 --	signal signal_shape 					: std_logic_vector(log2(G_SIGNAL_SHAPE_TYPES) - 1 downto 0);
 	signal output_signal 					: std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0);
 
+	signal dirac_index						: integer := 50;
 
 begin
 
 	clock <= not clock after (1 sec / G_CLOCK_FREQUENCY) / 2;
 	clock_n <= not clock;
 
-	enable <= '1';
+	enable <= '1' after 100 ns;
 
 	dut : entity hdl_library_SignalGenerator.SignalGenerator
 	generic map
 	(
 		G_CLOCK_FREQUENCY 					=> G_CLOCK_FREQUENCY,
 		G_SIGNAL_OUTPUT_RESOLUTION 			=> G_SIGNAL_OUTPUT_RESOLUTION,
-		G_SIGNAL_SHAPE 						=> SIGNAL_TYPE_SAW
+		G_CLOCK_COUNTER 					=> G_CLOCK_COUNTER,
+
+		G_SIGNAL_SHAPE 						=> SIGNAL_TYPE_DIRAC
 	)
 	port map
 	(
 		clock 								=> clock,
 		enable 								=> enable,
 
-		output_signal 						=> output_signal
+		output_signal 						=> output_signal,
+
+		dirac_index 						=> dirac_index
 
 		--ready 								=> ready
 	);

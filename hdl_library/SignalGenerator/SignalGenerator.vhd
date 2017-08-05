@@ -13,6 +13,8 @@ entity SignalGenerator is
 	(
 		G_CLOCK_FREQUENCY 				: integer;
 		G_SIGNAL_OUTPUT_RESOLUTION 		: integer;
+		G_CLOCK_COUNTER 				: integer;
+
 		G_SIGNAL_SHAPE 					: integer
 	);
 	port
@@ -20,7 +22,9 @@ entity SignalGenerator is
 		clock 							: in std_logic;
 		enable 							: in std_logic;
 
-		output_signal 					: out std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0)
+		output_signal 					: out std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0);
+
+		dirac_index 					: in integer
 
 		--ready 							: out std_logic
 
@@ -31,6 +35,10 @@ architecture arch of SignalGenerator is
 
 	signal i_saw_counter : std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0) := (others => '0');
 	signal i_phase_counter : std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0) := (others => '0');
+	signal i_sine : std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0) := (others => '0');
+	signal i_dirac : std_logic_vector(G_SIGNAL_OUTPUT_RESOLUTION - 1 downto 0) := (others => '0');
+
+	signal i_clock_counter : std_logic_vector(log2(G_CLOCK_COUNTER)- 1 downto 0) := (others => '0');
 
 begin
 
@@ -63,7 +71,7 @@ begin
 		begin
 			if rising_edge(clock) then
 				if enable = '1' then
-					i_saw_counter <= i_saw_counter + 1;
+					i_sine <= i_saw_counter + 1;
 				end if;
 				output_signal <= i_saw_counter;
 			end if;
@@ -83,5 +91,24 @@ begin
 
 	end generate signal_type_random;
 
+	signal_type_dirac: if G_SIGNAL_SHAPE = 5 generate
+
+		clock_counter:process(clock)
+		begin
+			if rising_edge(clock) then
+				i_dirac <= (others => '0');
+				if enable = '1' then
+					i_clock_counter <= i_clock_counter + 1;
+					if i_clock_counter = dirac_index - 1 then
+						i_dirac <= (others => '1');
+					else
+
+					end if;
+				end if;
+				output_signal <= i_dirac;
+			end if;
+		end process clock_counter; -- clock_counter
+
+	end generate signal_type_dirac;
 
 end architecture; -- arch
