@@ -37,9 +37,22 @@ end entity ; -- FIR_Core
 
 architecture arch of FIR_Core is
 
-
+	signal product 							: std_logic_vector((xn'length + current_coefficient'length - 1) downto 0) := (others => '0');
 
 begin
+
+	-- 8 clock cycles latency
+	signed_multiplier : entity work.signed_multiplier
+		port map
+		(
+			A 			=> X"12345678",
+			B 			=> X"00000001",
+
+			P 			=> product,
+
+			CLK 		=> clock
+		);
+
 
 
 end architecture ; -- arch

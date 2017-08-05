@@ -18,27 +18,38 @@ end entity; --FIR_CoreTB
 
 architecture arch of FIR_CoreTB is
 
-	constant C_FIR_FILTER_ORDER 				: integer;
+	constant G_CLOCK_FREQUENCY 					: integer := 100E6;
 
-	constant C_DATA_IN_WIDTH 					: integer;
-	constant C_DATA_OUT_WIDTH 					: integer;
+	constant C_FIR_FILTER_ORDER 				: integer := 16;
 
-	constant C_COEFF_WIDTH 						: integer;
+	constant C_DATA_IN_WIDTH 					: integer := 32;
+	constant C_DATA_OUT_WIDTH 					: integer := 32;
+
+	constant C_COEFF_WIDTH 						: integer := 32;
 
 
-	signal clock 								: std_logic;
-	signal enable 								: std_logic;
+	signal clock 								: std_logic := '0';
+	signal clock_n 								: std_logic := '0';
+	signal enable 								: std_logic := '0';
 
-	signal xn 									: std_logic_vector(C_DATA_IN_WIDTH - 1 downto 0);
-	signal xn_nd 								: std_logic;
+	type T_COEFF_ROM is array(0 to C_FIR_FILTER_ORDER - 1) of std_logic_vector(C_COEFF_WIDTH - 1 downto 0);
+	signal coeff_ROM 							: T_COEFF_ROM := (others => (others => '0'));
+
+	signal xn 									: std_logic_vector(C_DATA_IN_WIDTH - 1 downto 0) := (others => '0');
+	signal xn_nd 								: std_logic := '0';
 	
-	signal yn 									: std_logic_vector(C_DATA_OUT_WIDTH - 1 downto 0);
-	signal yn_valid 							: std_logic;
+	signal yn 									: std_logic_vector(C_DATA_OUT_WIDTH - 1 downto 0) := (others => '0');
+	signal yn_valid 							: std_logic := '0';
 
-	signal current_coefficient 					: std_logic_vector(C_COEFF_WIDTH - 1 downto 0);
-	signal current_coefficient_address 			: std_logic_vector(log2(C_FIR_FILTER_ORDER) - 1 downto 0);
+	signal current_coefficient 					: std_logic_vector(C_COEFF_WIDTH - 1 downto 0) := (others => '0');
+	signal current_coefficient_address 			: std_logic_vector(log2(C_FIR_FILTER_ORDER) - 1 downto 0) := (others => '0');
 
 begin
+
+	clock <= not clock after (1 sec / G_CLOCK_FREQUENCY) / 2;
+	clock_n <= not clock;
+
+	enable <= '1' after 100 ns;
 
 	dut : entity hdl_library_DSP_Filter_FIR.FIR_Core
 	generic map
