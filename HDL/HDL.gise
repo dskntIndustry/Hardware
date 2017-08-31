@@ -22,11 +22,99 @@
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="HDL.xise"/>
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
+    <file xil_pn:fileType="FILE_LOG" xil_pn:name="../hdl_library/Cores/adder/signed/coregen.log"/>
+    <file xil_pn:fileType="FILE_ASY" xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.asy" xil_pn:origination="imported"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_NGC" xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.ngc" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.sym" xil_pn:origination="imported"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_VHDL" xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.vhd" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_VHO" xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.vho" xil_pn:origination="imported"/>
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_NGC" xil_pn:name="../hdl_library/Cores/multiplier/signed/signed_multiplier.ngc" xil_pn:origination="imported"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_VHDL" xil_pn:name="../hdl_library/Cores/multiplier/signed/signed_multiplier.vhd" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="FIR_CoreTB_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="FIR_CoreTB_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="FIR_CoreTB_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_NCD" xil_pn:name="MimasTop_guide.ncd" xil_pn:origination="imported"/>
+    <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
+    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
   </files>
 
-  <transforms xmlns="http://www.xilinx.com/XMLSchema"/>
+  <transforms xmlns="http://www.xilinx.com/XMLSchema">
+    <transform xil_pn:end_ts="1504208511" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1504208510">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1504211481" xil_pn:in_ck="-6938470209182873023" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1504211480">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="../hdl_library/ClockGenerator/ClockGenerator.vhd"/>
+      <outfile xil_pn:name="../hdl_library/ClockGenerator/ClockGeneratorTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/CommonFunctions/CommonFunctions.vhd"/>
+      <outfile xil_pn:name="../hdl_library/CommonFunctions/MathHelpers.vhd"/>
+      <outfile xil_pn:name="../hdl_library/DSP/Filter/FIR/FIR_Core.vhd"/>
+      <outfile xil_pn:name="../hdl_library/DSP/Filter/FIR/FIR_CoreTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_Master.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_MasterTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_Slave.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_SlaveTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SignalGenerator/SignalGenerator.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SignalGenerator/SignalGeneratorTB.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1504208511" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-1338321859186347645" xil_pn:start_ts="1504208511">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1504208511" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="2266559364528385025" xil_pn:start_ts="1504208511">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1504208511" xil_pn:in_ck="4593498778236144514" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="-5779288089812121124" xil_pn:start_ts="1504208511">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.ngc"/>
+      <outfile xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1504211481" xil_pn:in_ck="-8688336737065459149" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1504211481">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="../hdl_library/ClockGenerator/ClockGenerator.vhd"/>
+      <outfile xil_pn:name="../hdl_library/ClockGenerator/ClockGeneratorTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/CommonFunctions/CommonFunctions.vhd"/>
+      <outfile xil_pn:name="../hdl_library/CommonFunctions/MathHelpers.vhd"/>
+      <outfile xil_pn:name="../hdl_library/Cores/adder/signed/signed_adder.vhd"/>
+      <outfile xil_pn:name="../hdl_library/Cores/multiplier/signed/signed_multiplier.vhd"/>
+      <outfile xil_pn:name="../hdl_library/DSP/Filter/FIR/FIR_Core.vhd"/>
+      <outfile xil_pn:name="../hdl_library/DSP/Filter/FIR/FIR_CoreTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_Master.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_MasterTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_Slave.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SPI/SPI_SlaveTB.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SignalGenerator/SignalGenerator.vhd"/>
+      <outfile xil_pn:name="../hdl_library/SignalGenerator/SignalGeneratorTB.vhd"/>
+    </transform>
+    <transform xil_pn:end_ts="1504211497" xil_pn:in_ck="-8688336737065459149" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-2574196586486312884" xil_pn:start_ts="1504211481">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="FIR_CoreTB_beh.prj"/>
+      <outfile xil_pn:name="FIR_CoreTB_isim_beh.exe"/>
+      <outfile xil_pn:name="fuse.log"/>
+      <outfile xil_pn:name="isim"/>
+      <outfile xil_pn:name="isim.log"/>
+      <outfile xil_pn:name="xilinxsim.ini"/>
+    </transform>
+    <transform xil_pn:end_ts="1504211498" xil_pn:in_ck="7991980824911167598" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="353246201445295397" xil_pn:start_ts="1504211497">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="FIR_CoreTB_isim_beh.wdb"/>
+      <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
+    </transform>
+    <transform xil_pn:name="TRAN_SubProjectAbstractToPreProxy">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+  </transforms>
 
 </generated_project>

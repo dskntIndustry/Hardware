@@ -15,7 +15,10 @@ entity FIR_Core is
 		C_DATA_IN_WIDTH 					: integer;
 		C_DATA_OUT_WIDTH 					: integer;
 
-		C_COEFF_WIDTH 						: integer
+		C_COEFF_WIDTH 						: integer;
+
+		C_MULTIPLIER_DELAY 					: integer;
+		C_ADDER_DELAY 						: integer
 	);
 	port
 	(
@@ -37,7 +40,11 @@ end entity ; -- FIR_Core
 
 architecture arch of FIR_Core is
 
+	type T_samples_RAM is array (0 to C_FIR_FILTER_ORDER-1) of std_logic_vector(C_DATA_IN_WIDTH - 1 downto 0);
+	signal samples_RAM 						: T_samples_RAM := (others => (others => '0'));
+
 	signal product 							: std_logic_vector((xn'length + current_coefficient'length - 1) downto 0) := (others => '0');
+	signal sum 								: std_logic_vector((xn'length - 1) downto 0) := (others => '0');
 
 begin
 
@@ -53,6 +60,29 @@ begin
 			CLK 		=> clock
 		);
 
+	-- 8 clock cycles latency
+	signed_adder : entity work.signed_adder
+		port map
+		(
+			A 			=> X"12345678",
+			B 			=> X"00000001",
+
+			S 			=> sum,
+
+			CLK 		=> clock
+		);
+
+		sequencer:process(clock)
+		begin
+			if rising_edge(clock) then
+				if xn_nd = '1' then
+					shift_samples_RAM : for i in 0 to C_FIR_FILTER_ORDER - 1 loop
+						samples_RAM(i+1) <= samples_RAM(i);
+					end loop ; -- shift_samples_RAM
+					samples_RAM(0) <= xn;
+				end if;
+			end if;
+		end process sequencer; -- sequencer
 
 
 end architecture ; -- arch
